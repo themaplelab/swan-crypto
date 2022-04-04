@@ -48,6 +48,7 @@ My analysis currently supports the following rules:
    ```
 
 6. Do Not Use Constant Password for PBE
+   *Note that this rule is actually called rule 7 because I do not support rule 6 from Egele et. al.*
 
    ```swift
    let password = "constant password".bytes
@@ -89,6 +90,17 @@ Run the SWAN analysis.
 ```
 java -jar driver.jar --crypto swan-dir/
 ```
+
+You will see some output in the terminal. The following table summarizes the analysis results you should see.
+
+| Violation type    | # of violations |
+| ----------------- | --------------- |
+| Rule 1: ECB       | 3               |
+| Rule 2: IV        | 18              |
+| Rule 3: KEY       | 21              |
+| Rule 4: SALT      | 7               |
+| Rule 5: ITERATION | 3               |
+| Rule 7: PASSWORD  | 7               |
 
 The analysis results will be available in `swan-dir/crypto-results.json`. Now, we use the annotation checker to make sure the analysis found the correct violations. You should see no output (and exit 0) if the violations are correct.
 
