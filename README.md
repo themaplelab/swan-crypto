@@ -48,7 +48,8 @@ My analysis currently supports the following rules:
    ```
 
 6. Do Not Use Constant Password for PBE
-   *Note that this rule is actually called rule 7 because I do not support rule 6 from Egele et. al.*
+   
+   *Note that this rule is actually called rule 7 because I do not support rule 6 from [Egele et al.](https://dl.acm.org/doi/10.1145/2508859.2516693)*
 
    ```swift
    let password = "constant password".bytes
@@ -65,7 +66,7 @@ git clone https://github.com/themaplelab/swan.git -b crypto
 
 Follow the instructions located in the README of SWAN to build SWAN. The `lib/` directory will contain the executables you need to run SWAN. I recommend putting the `lib/` directory onto your `$PATH`.
 
-### Running tests
+## Running tests
 
 `CryptoSwiftTests/` contains an Xcode project with code that exhibits API misuses for use with the crypto analysis. You can run the analysis on the project using the following series of commands
 
