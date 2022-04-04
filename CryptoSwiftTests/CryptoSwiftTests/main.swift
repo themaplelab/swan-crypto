@@ -35,9 +35,9 @@ func test_r1_simple_violation() throws {
   let blockMode = ECB()
   
   // Violation SHOULD be detected only for blockMode argument
-  _ = try AES(key: key, blockMode: blockMode, padding: padding)
-  _ = try AES(key: key, blockMode: blockMode)
-  _ = try Blowfish(key: key, blockMode: blockMode, padding: padding)
+  _ = try AES(key: key, blockMode: blockMode, padding: padding) //$ECB$error
+  _ = try AES(key: key, blockMode: blockMode) //$ECB$error
+  _ = try Blowfish(key: key, blockMode: blockMode, padding: padding) //$ECB$error
 }
 
 func test_r1_simple_no_violation() throws {
@@ -63,24 +63,24 @@ func test_r2_simple_violation() throws {
   // Violation SHOULD be detected only for iv argument
   
   // BlockModes
-  _ = CBC(iv: iv)
-  _ = CFB(iv: iv)
-  _ = CFB(iv: iv, segmentSize: CFB.SegmentSize.cfb8)
-  _ = CCM(iv: iv, tagLength: 0, messageLength: 0, additionalAuthenticatedData: randomArray)
-  _ = CCM(iv: iv, tagLength: 0, messageLength: 0, authenticationTag: randomArray, additionalAuthenticatedData: randomArray)
-  _ = OFB(iv: iv)
-  _ = CTR(iv: iv)
-  _ = CTR(iv: iv, counter: 0)
-  _ = PCBC(iv: iv)
+  _ = CBC(iv: iv) //$IV$error
+  _ = CFB(iv: iv) //$IV$error
+  _ = CFB(iv: iv, segmentSize: CFB.SegmentSize.cfb8) //$IV$error
+  _ = CCM(iv: iv, tagLength: 0, messageLength: 0, additionalAuthenticatedData: randomArray) //$IV$error
+  _ = CCM(iv: iv, tagLength: 0, messageLength: 0, authenticationTag: randomArray, additionalAuthenticatedData: randomArray) //$IV$error
+  _ = OFB(iv: iv) //$IV$error
+  _ = CTR(iv: iv) //$IV$error
+  _ = CTR(iv: iv, counter: 0) //$IV$error
+  _ = PCBC(iv: iv) //$IV$error
   
   // Cryptors
-  _ = try AES(key: keyString, iv: ivString)
-  _ = try ChaCha20(key: key, iv: iv)
-  _ = try ChaCha20(key: keyString, iv: ivString)
-  _ = try Blowfish(key: keyString, iv: ivString)
-  _ = try Blowfish(key: keyString, iv: ivString, padding: Padding.noPadding)
-  _ = try Rabbit(key: key, iv: iv)
-  _ = try Rabbit(key: keyString, iv: ivString)
+  _ = try AES(key: keyString, iv: ivString) //$IV$error
+  _ = try ChaCha20(key: key, iv: iv) //$IV$error
+  _ = try ChaCha20(key: keyString, iv: ivString) //$IV$error
+  _ = try Blowfish(key: keyString, iv: ivString) //$IV$error
+  _ = try Blowfish(key: keyString, iv: ivString, padding: Padding.noPadding) //$IV$error
+  _ = try Rabbit(key: key, iv: iv) //$IV$error
+  _ = try Rabbit(key: keyString, iv: ivString) //$IV$error
 }
 
 func test_r2_simple_no_violation() throws {
@@ -118,7 +118,7 @@ func test_r2_simple_no_violation() throws {
 func test_r2_non_random_but_not_constant_violation() {
   let iv = getUnknownArray()
   // Violation SHOULD be detected only for iv argument
-  _ = CBC(iv: iv)
+  _ = CBC(iv: iv) //$IV$error
 }
 
 // *** RULE 3: DO NOT USE CONSTANT ENCRYPTION KEYS ***
@@ -136,41 +136,41 @@ func test_r3_simple_violation() throws {
   // Violation SHOULD be detected only for key argument
   
   // AES
-  _ = try AES(key: key, blockMode: blockMode, padding: padding)
-  _ = try AES(key: key, blockMode: blockMode)
-  _ = try AES(key: keyString, iv: ivString)
-  _ = try AES(key: keyString, iv: ivString, padding: padding)
+  _ = try AES(key: key, blockMode: blockMode, padding: padding) //$KEY$error
+  _ = try AES(key: key, blockMode: blockMode) //$KEY$error
+  _ = try AES(key: keyString, iv: ivString) //$KEY$error
+  _ = try AES(key: keyString, iv: ivString, padding: padding) //$KEY$error
 
   // HMAC
-  _ = HMAC(key: key)
-  _ = HMAC(key: key, variant: variant)
-  _ = try HMAC(key: keyString)
-  _ = try HMAC(key: keyString, variant: variant)
+  _ = HMAC(key: key) //$KEY$error
+  _ = HMAC(key: key, variant: variant) //$KEY$error
+  _ = try HMAC(key: keyString) //$KEY$error
+  _ = try HMAC(key: keyString, variant: variant) //$KEY$error
   
   // ChaCha20
-  _ = try ChaCha20(key: key, iv: iv)
-  _ = try ChaCha20(key: keyString, iv: ivString)
+  _ = try ChaCha20(key: key, iv: iv) //$KEY$error
+  _ = try ChaCha20(key: keyString, iv: ivString) //$KEY$error
   
   // CBCMAC
-  _ = try CBCMAC(key: key)
+  _ = try CBCMAC(key: key) //$KEY$error
   
   // CMAC
-  _ = try CMAC(key: key)
+  _ = try CMAC(key: key) //$KEY$error
 
   // Poly1305
-  _ = Poly1305(key: key)
+  _ = Poly1305(key: key) //$KEY$error
   
   // Blowfish
-  _ = try Blowfish(key: keyString, iv: ivString)
-  _ = try Blowfish(key: keyString, iv: ivString, padding: padding)
-  _ = try Blowfish(key: key, blockMode: blockMode, padding: padding)
-  _ = try Blowfish(key: key, padding: padding)
+  _ = try Blowfish(key: keyString, iv: ivString) //$KEY$error
+  _ = try Blowfish(key: keyString, iv: ivString, padding: padding) //$KEY$error
+  _ = try Blowfish(key: key, blockMode: blockMode, padding: padding) //$KEY$error
+  _ = try Blowfish(key: key, padding: padding) //$KEY$error
   
   // Rabbit
-  _ = try Rabbit(key: key)
-  _ = try Rabbit(key: keyString)
-  _ = try Rabbit(key: key, iv: iv)
-  _ = try Rabbit(key: keyString, iv: ivString)
+  _ = try Rabbit(key: key) //$KEY$error
+  _ = try Rabbit(key: keyString) //$KEY$error
+  _ = try Rabbit(key: key, iv: iv) //$KEY$error
+  _ = try Rabbit(key: keyString, iv: ivString) //$KEY$error
 }
 
 func test_r3_simple_no_violation() throws {
@@ -232,10 +232,10 @@ func test_r4_simple_violation() throws {
 
   // Violation SHOULD be detected only for password argument
   
-  _ = try HKDF(password: randomArray, salt: salt, info: randomArray, keyLength: 0, variant: HMAC.Variant.sha2(.sha256))
-  _ = try PKCS5.PBKDF1(password: randomArray, salt: salt, iterations: iterations, keyLength: 0)
-  _ = try PKCS5.PBKDF2(password: randomArray, salt: salt, iterations: iterations, keyLength: 0)
-  _ = try Scrypt(password: randomArray, salt: salt, dkLen: 64, N: 16384, r: 8, p: 1)
+  _ = try HKDF(password: randomArray, salt: salt, info: randomArray, keyLength: 0, variant: HMAC.Variant.sha2(.sha256)) //$SALT$error
+  _ = try PKCS5.PBKDF1(password: randomArray, salt: salt, iterations: iterations, keyLength: 0) //$SALT$error
+  _ = try PKCS5.PBKDF2(password: randomArray, salt: salt, iterations: iterations, keyLength: 0) //$SALT$error
+  _ = try Scrypt(password: randomArray, salt: salt, dkLen: 64, N: 16384, r: 8, p: 1) //$SALT$error
 }
 
 func test_r4_from_string_violation() throws {
@@ -244,7 +244,7 @@ func test_r4_from_string_violation() throws {
   let randomArray = getRandomArray()
 
   // Violation SHOULD be detected only for salt argument
-  _ = try HKDF(password: randomArray, salt: salt, info: randomArray, keyLength: 0, variant: HMAC.Variant.sha2(.sha256))
+  _ = try HKDF(password: randomArray, salt: salt, info: randomArray, keyLength: 0, variant: HMAC.Variant.sha2(.sha256)) //$SALT$error
 }
 
 func test_r4_from_string_md5_violation() throws {
@@ -253,7 +253,7 @@ func test_r4_from_string_md5_violation() throws {
   let randomArray = getRandomArray()
   
   // Violation SHOULD be detected only for salt argument
-  _ = try HKDF(password: randomArray, salt: salt, info: randomArray, keyLength: 0, variant: HMAC.Variant.sha2(.sha256))
+  _ = try HKDF(password: randomArray, salt: salt, info: randomArray, keyLength: 0, variant: HMAC.Variant.sha2(.sha256)) //$SALT$error
 }
 
 func test_r4_multiple_values_violation() throws {
@@ -261,7 +261,7 @@ func test_r4_multiple_values_violation() throws {
   let randomArray = getRandomArray()
   
   // Violation SHOULD be detected only for salt argument
-  _ = try HKDF(password: randomArray, salt: salt, info: randomArray, keyLength: 0, variant: HMAC.Variant.sha2(.sha256))
+  _ = try HKDF(password: randomArray, salt: salt, info: randomArray, keyLength: 0, variant: HMAC.Variant.sha2(.sha256)) //$SALT$error
 }
 
 func test_r4_simple_no_violation() throws {
@@ -285,8 +285,8 @@ func test_r5_simple_violation() throws {
   let randomArray = getRandomArray()
   
   // Violation SHOULD be detected only for iterations argument
-  _ = try PKCS5.PBKDF1(password: randomArray, salt: randomArray, iterations: iterations, keyLength: 0)
-  _ = try PKCS5.PBKDF2(password: randomArray, salt: randomArray, iterations: iterations, keyLength: 0)
+  _ = try PKCS5.PBKDF1(password: randomArray, salt: randomArray, iterations: iterations, keyLength: 0) //$ITERATION$error
+  _ = try PKCS5.PBKDF2(password: randomArray, salt: randomArray, iterations: iterations, keyLength: 0) //$ITERATION$error
 }
 
 func test_r5_multiple_values_violation() throws {
@@ -294,7 +294,7 @@ func test_r5_multiple_values_violation() throws {
   let randomArray = getRandomArray()
     
   // Violation SHOULD be detected only for iterations argument
-  _ = try PKCS5.PBKDF1(password: randomArray, salt: randomArray, iterations: iterations, keyLength: 0)
+  _ = try PKCS5.PBKDF1(password: randomArray, salt: randomArray, iterations: iterations, keyLength: 0) //$ITERATION$error
 }
 
 func test_r5_simple_no_violation() throws {
@@ -315,10 +315,10 @@ func test_r7_simple_violation() throws {
 
   // Violation SHOULD be detected only for password argument
   
-  _ = try HKDF(password: password, salt: randomArray, info: randomArray, keyLength: 0, variant: HMAC.Variant.sha2(.sha256))
-  _ = try PKCS5.PBKDF1(password: password, salt: randomArray, iterations: iterations, keyLength: 0)
-  _ = try PKCS5.PBKDF2(password: password, salt: randomArray, iterations: iterations, keyLength: 0)
-  _ = try Scrypt(password: password, salt: randomArray, dkLen: 64, N: 16384, r: 8, p: 1)
+  _ = try HKDF(password: password, salt: randomArray, info: randomArray, keyLength: 0, variant: HMAC.Variant.sha2(.sha256)) //$PASSWORD$error
+  _ = try PKCS5.PBKDF1(password: password, salt: randomArray, iterations: iterations, keyLength: 0) //$PASSWORD$error
+  _ = try PKCS5.PBKDF2(password: password, salt: randomArray, iterations: iterations, keyLength: 0) //$PASSWORD$error
+  _ = try Scrypt(password: password, salt: randomArray, dkLen: 64, N: 16384, r: 8, p: 1) //$PASSWORD$error
 }
 
 func test_r7_from_string_violation() throws {
@@ -327,7 +327,7 @@ func test_r7_from_string_violation() throws {
   let randomArray = getRandomArray()
 
   // Violation SHOULD be detected only for password argument
-  _ = try HKDF(password: password, salt: randomArray, info: randomArray, keyLength: 0, variant: HMAC.Variant.sha2(.sha256))
+  _ = try HKDF(password: password, salt: randomArray, info: randomArray, keyLength: 0, variant: HMAC.Variant.sha2(.sha256)) //$PASSWORD$error
 }
 
 func test_r7_from_string_md5_violation() throws {
@@ -336,7 +336,7 @@ func test_r7_from_string_md5_violation() throws {
   let randomArray = getRandomArray()
 
   // Violation SHOULD be detected only for password argument
-  _ = try HKDF(password: password, salt: randomArray, info: randomArray, keyLength: 0, variant: HMAC.Variant.sha2(.sha256))
+  _ = try HKDF(password: password, salt: randomArray, info: randomArray, keyLength: 0, variant: HMAC.Variant.sha2(.sha256)) //$PASSWORD$error
 }
 
 func test_r7_multiple_values_violation() throws {
@@ -345,7 +345,7 @@ func test_r7_multiple_values_violation() throws {
   let randomArray = getRandomArray()
 
   // Violation SHOULD be detected only for password argument
-  _ = try HKDF(password: password, salt: randomArray, info: randomArray, keyLength: 0, variant: HMAC.Variant.sha2(.sha256))
+  _ = try HKDF(password: password, salt: randomArray, info: randomArray, keyLength: 0, variant: HMAC.Variant.sha2(.sha256)) //$PASSWORD$error
 }
 
 func test_r7_simple_no_violation() throws {
@@ -359,4 +359,3 @@ func test_r7_simple_no_violation() throws {
   _ = try PKCS5.PBKDF2(password: password, salt: randomArray, iterations: iterations, keyLength: 0)
   _ = try Scrypt(password: password, salt: randomArray, dkLen: 64, N: 16384, r: 8, p: 1)
 }
-

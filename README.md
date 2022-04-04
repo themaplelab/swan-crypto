@@ -1,5 +1,3 @@
-
-
 # SWAN Crypto
 
 This repository contains work for using [SWAN](https://github.com/themaplelab/swan) to find cryptographic API misuses. This work is experimental.
@@ -68,13 +66,32 @@ Follow the instructions located in the README of SWAN to build SWAN. The `lib/` 
 
 ### Running tests
 
-`CryptoSwiftTests/` contains an Xcode project with code that exhibits API misuses for use with the crypto analysis. You can run the analysis on the project using the following series of commands. Currently, analysis results are only written to the terminal.
+`CryptoSwiftTests/` contains an Xcode project with code that exhibits API misuses for use with the crypto analysis. You can run the analysis on the project using the following series of commands
+
+```shell
+cd CryptoSwiftTests/
+```
+
+Build the project
+
+```shell
+swan-xcodebuild -- -project CryptoSwiftTests.xcodeproj -scheme CryptoSwiftTests
+```
+
+Now you should see a `swan-dir/` containing the SIL files to analyze. Due to an issue with parsing, you need to copy  the `CryptoSwift.CryptoSwift.sil` file located in `sil/` into the ` swan-dir/`.
+
+```shell
+cp ../sil/CryptoSwift.CryptoSwift.sil swan-dir/
+```
+
+Run the SWAN analysis.
 
 ```
-cd CryptoSwiftTests/
-swan-xcodebuild -- -project CryptoSwiftTests.xcodeproj -scheme CryptoSwiftTests
-cp ../sil/CryptoSwift.CryptoSwift.sil swan-dir/
 java -jar driver.jar --crypto swan-dir/
 ```
 
-Note: Due to an issue with parsing, you need to copy  the `CryptoSwift.CryptoSwift.sil` file located in `sil/` into the ` swan-dir/`.
+The analysis results will be available in `swan-dir/crypto-results.json`. Now, we use the annotation checker to make sure the analysis found the correct violations. You should see no output (and exit 0) if the violations are correct.
+
+```
+java -jar annotation.jar swan-dir/
+```
