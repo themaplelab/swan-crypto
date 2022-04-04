@@ -28,7 +28,7 @@ My analysis currently supports the following rules:
    _ = try AES(key: key, iv: iv)
    ```
 
-3.  Do Not Use Constant Encryption Keys
+3. Do Not Use Constant Encryption Keys
 
    ```swift
    let key = "constant key".bytes
