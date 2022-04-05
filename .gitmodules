@@ -1,0 +1,3 @@
+[submodule "apps/RxCommonKit"]
+	path = apps/RxCommonKit
+	url = https://github.com/DanielZSY/RxCommonKit.git
