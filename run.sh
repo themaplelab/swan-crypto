@@ -25,6 +25,7 @@ cd "$ROOT_DIR/apps"
 
 echo "📁 Running RxCommonKit..."
 cd RxCommonKit/Example
+echo "ℹ️ Running pod install"
 pod install
 echo "ℹ️ Running swan-xcodebuild"
 swan-xcodebuild -- -workspace RxCommonKit.xcworkspace/ -scheme "RxCommonKit"
@@ -43,6 +44,6 @@ java -jar "$PATH_TO_SWAN_BIN"/annotation.jar swan-dir/ --src-dir "$ROOT_DIR/apps
 echo "  SUCCESS ✅"
 echo ""
 
-cd "$ROOT_DIR"
+cd "$ROOT_DIR/apps"
 
 echo " ALL TESTS PASSED! ✅🟢✅"
