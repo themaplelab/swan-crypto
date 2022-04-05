@@ -58,10 +58,10 @@ My analysis currently supports the following rules:
 
 ## Instructions
 
-Clone SWAN using the `crypto` branch.
+Clone SWAN.
 
 ```shell
-git clone https://github.com/themaplelab/swan.git -b crypto
+git clone https://github.com/themaplelab/swan.git
 ```
 
 Follow the instructions located in the README of SWAN to build SWAN. The `lib/` directory will contain the executables you need to run SWAN. I recommend putting the `lib/` directory onto your `$PATH`.
