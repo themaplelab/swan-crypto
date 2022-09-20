@@ -4,7 +4,7 @@ This repository contains work for using [SWAN](https://github.com/themaplelab/sw
 
 ### Summary
 
-I have extended SWAN to feature hand-crafted analyses for detecting misuses in the popular open-source [SwiftCrypto](https://github.com/krzyzanowskim/CryptoSwift) API. You can find the analysis code [here](https://github.com/themaplelab/swan/blob/crypto/jvm/ca.ualberta.maple.swan.spds/src/scala/ca/ualberta/maple/swan/spds/analysis/crypto/CryptoAnalysis.scala). My analyses follow the classic crypto rules/guidelines as laid out in the following works:
+I have extended SWAN to feature hand-crafted analyses for detecting misuses in the popular open-source [SwiftCrypto](https://github.com/krzyzanowskim/CryptoSwift) API. You can find the analysis code [here](https://github.com/themaplelab/swan/blob/spds/jvm/ca.ualberta.maple.swan.spds/src/scala/ca/ualberta/maple/swan/spds/analysis/crypto/CryptoAnalysis.scala). My analyses follow the classic crypto rules/guidelines as laid out in the following works:
 
 - Modelling Analysis and Auto-detection of Cryptographic Misuse in Android Applications [[link](https://ieeexplore.ieee.org/document/6945307)]
 - A Comparative Study of Misapplied Crypto in Android and iOS Applications [[link](https://www.semanticscholar.org/paper/A-Comparative-Study-of-Misapplied-Crypto-in-Android-Feichtner/d3c48ad2e7e67521f5847f596ab8b3ca37f6b5a4)]
