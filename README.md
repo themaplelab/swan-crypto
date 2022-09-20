@@ -4,11 +4,11 @@ This repository contains work for using [SWAN](https://github.com/themaplelab/sw
 
 ### Summary
 
-I have extended SWAN to feature hand-crafted analyses for detecting misuses in the popular open-source [SwiftCrypto](https://github.com/krzyzanowskim/CryptoSwift) API. You can find the analysis code [here](https://github.com/themaplelab/swan/blob/spds/jvm/ca.ualberta.maple.swan.spds/src/scala/ca/ualberta/maple/swan/spds/analysis/crypto/CryptoAnalysis.scala). My analyses follow the classic crypto rules/guidelines as laid out in the following works:
+I have extended SWAN to feature a hand-crafted analysis for detecting misuses in the popular open-source [SwiftCrypto](https://github.com/krzyzanowskim/CryptoSwift) API. You can find the analysis code [here](https://github.com/themaplelab/swan/blob/spds/jvm/ca.ualberta.maple.swan.spds/src/scala/ca/ualberta/maple/swan/spds/analysis/crypto/CryptoAnalysis.scala). My analysis follows the classic crypto rules/guidelines as laid out in the following work:
 
-- Modelling Analysis and Auto-detection of Cryptographic Misuse in Android Applications [[link](https://ieeexplore.ieee.org/document/6945307)]
-- A Comparative Study of Misapplied Crypto in Android and iOS Applications [[link](https://www.semanticscholar.org/paper/A-Comparative-Study-of-Misapplied-Crypto-in-Android-Feichtner/d3c48ad2e7e67521f5847f596ab8b3ca37f6b5a4)]
-- An empirical study of cryptographic misuse in android applications [[link](https://dl.acm.org/doi/10.1145/2508859.2516693)]
+- *Modelling Analysis and Auto-detection of Cryptographic Misuse in Android Applications* [[link](https://ieeexplore.ieee.org/document/6945307)]
+- *A Comparative Study of Misapplied Crypto in Android and iOS Applications* [[link](https://www.semanticscholar.org/paper/A-Comparative-Study-of-Misapplied-Crypto-in-Android-Feichtner/d3c48ad2e7e67521f5847f596ab8b3ca37f6b5a4)]
+- *An empirical study of cryptographic misuse in android applications* [[link](https://dl.acm.org/doi/10.1145/2508859.2516693)]
 
 My analysis currently supports the following rules:
 
@@ -86,7 +86,7 @@ Now you should see a `swan-dir/` containing the SIL files to analyze. Due to an 
 cp ../sil/CryptoSwift.CryptoSwift.sil swan-dir/
 ```
 
-Run the SWAN analysis.
+Run the SWAN crypto analysis.
 
 ```
 java -jar driver.jar --crypto swan-dir/
